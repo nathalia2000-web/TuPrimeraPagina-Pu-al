@@ -1,0 +1,86 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Inicio - Mi Blog{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="fw-bold">
+            <i class="bi bi-house-heart"></i> Bienvenido a Mi Blog
+        </h1>
+        <p class="text-muted">Aquí encontrarás todos los posts publicados</p>
+    </div>
+</div>
+
+<!-- Estadísticas -->
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+            <h3 class="fw-bold">{{ total_posts }}</h3>
+            <p class="mb-0"><i class="bi bi-file-text"></i> Posts Totales</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+            <h3 class="fw-bold">{{ total_autores }}</h3>
+            <p class="mb-0"><i class="bi bi-people"></i> Autores</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="stat-card" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+            <h3 class="fw-bold">{{ total_categorias }}</h3>
+            <p class="mb-0"><i class="bi bi-tags"></i> Categorías</p>
+        </div>
+    </div>
+</div>
+
+<!-- Lista de Posts -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="fw-bold mb-3">
+            <i class="bi bi-newspaper"></i> Posts Recientes
+        </h2>
+    </div>
+
+    {% if posts %}
+        {% for post in posts %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <span class="badge bg-primary mb-2">{{ post.categoria }}</span>
+                    <h5 class="card-title fw-bold">{{ post.titulo }}</h5>
+                    <p class="card-text text-muted">{{ post.resumen }}</p>
+                </div>
+                <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        <i class="bi bi-person"></i> {{ post.autor }}
+                        &nbsp;|&nbsp;
+                        <i class="bi bi-calendar"></i> {{ post.fecha_publicacion|date:"d/m/Y" }}
+                    </small>
+                    <span class="badge 
+                        {% if post.estado == 'publicado' %}bg-success
+                        {% elif post.estado == 'borrador' %}bg-warning
+                        {% else %}bg-secondary{% endif %}">
+                        {{ post.estado }}
+                    </span>
+                </div>
+                <!-- Botón Ver más -->
+                <div class="card-footer bg-transparent">
+                    <a href="{% url 'detalle_post' post.pk %}" class="btn btn-primary w-100">
+                        👁️ Ver post
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> 
+                No hay posts aún. 
+                <a href="{% url 'crear_post' %}" class="alert-link">¡Crea el primero!</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

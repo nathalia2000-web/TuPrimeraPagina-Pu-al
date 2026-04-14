@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Crear Autor{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="fw-bold mb-0">
+                    <i class="bi bi-person-plus"></i> Crear Nuevo Autor
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Guardar Autor
+                        </button>
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
