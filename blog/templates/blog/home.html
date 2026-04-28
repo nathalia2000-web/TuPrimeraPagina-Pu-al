@@ -66,7 +66,7 @@
                 </div>
                 <!-- Botón Ver más -->
                 <div class="card-footer bg-transparent">
-                    <a href="{% url 'detalle_post' post.pk %}" class="btn btn-primary w-100">
+                    <a href="{% url 'blog:detalle_post' post.slug %}" class="btn btn-primary w-100">
                         👁️ Ver post
                     </a>
                 </div>
@@ -78,7 +78,10 @@
             <div class="alert alert-info">
                 <i class="bi bi-info-circle"></i> 
                 No hay posts aún. 
-                <a href="{% url 'crear_post' %}" class="alert-link">¡Crea el primero!</a>
+    {% if user.is_staff or user.is_superuser %}
+    <a href="{% url 'blog:crear_post' %}" class="alert-link">¡Crea el primero!</a>
+    {% endif %}
+    
             </div>
         </div>
     {% endif %}

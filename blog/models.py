@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.text import slugify  # 👈 Va aquí arriba
+from ckeditor.fields import RichTextField
 
 
 class Autor(models.Model):
@@ -39,8 +41,10 @@ class Post(models.Model):
     ]
 
     titulo = models.CharField(max_length=200)
-    contenido = models.TextField()
+    slug = models.SlugField(unique=True, blank=True)
     resumen = models.CharField(max_length=300, blank=True)
+    contenido = RichTextField()
+    imagen = models.ImageField(upload_to='posts/', blank=True, null=True)
     autor = models.ForeignKey(
         Autor,
         on_delete=models.CASCADE,
@@ -61,6 +65,11 @@ class Post(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):  # 👈 Método nuevo
+        if not self.slug:
+            self.slug = slugify(self.titulo)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.titulo
 
@@ -68,3 +77,4 @@ class Post(models.Model):
         verbose_name = "Post"
         verbose_name_plural = "Posts"
         ordering = ['-fecha_creacion']
+        

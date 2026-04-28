@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Sobre Nosotros{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body p-5">
+                
+                <!-- Foto -->
+                <div class="text-center mb-4">
+                    <img src="{% static 'images/yo.jpg' %}" 
+                         class="rounded-circle" 
+                         width="150" height="150"
+                         alt="Foto de perfil">
+                </div>
+                
+
+                <!-- Nombre -->
+                <h1 class="text-center mb-3">Natalia Punal</h1>
+                
+                <!-- Descripción -->
+                <p class="lead text-center text-muted">
+                    Bienvenido a mi blog de música 🎵
+                </p>
+
+                <hr>
+
+                <!-- Sobre mí -->
+                <h4><i class="bi bi-person"></i> Sobre mí</h4>
+                <p>
+                    Libra es un signo cardinal y de aire, se encuentra además entre los signos más refinados del zodíaco; tiene elegancia, encanto, diplomacia y buen gusto, ama la belleza, es muy curioso por naturaleza y odia los conflictos. Sus puntos negativos a veces son la frivolidad y un carácter voluble.
+
+Al igual que su propio arquetipo: la balanza, símbolo de justicia, las Libra son personas que presentan un sentido de la ecuanimidad y la tolerancia muy desarrollado; comprenden las posturas de los demás y al mismo tiempo procuran dirimir las diferencias. En general, no les gusta la rutina, sobre todo en su trabajo; además tienen una fina sensibilidad artística que pueden llegar a canalizar profesionalmente.
+                </p>
+
+                <!-- Contacto -->
+                <h4><i class="bi bi-envelope"></i> Contacto</h4>
+                <p>nathalia_2000@email.com</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-body p-5">
+
                     <!-- Categoría -->
                     {% if post.categoria %}
                     <span class="badge bg-primary mb-3">{{ post.categoria }}</span>
@@ -34,16 +35,24 @@
 
                     <!-- Botones -->
                     <div class="d-flex gap-2 mt-4">
-                        <a href="{% url 'editar_post' post.pk %}" class="btn btn-warning">
+
+                        <!-- ✅ Solo visible para Staff/Admin -->
+                        {% if user.is_staff or user.is_superuser %}
+                        <a href="{% url 'blog:editar_post' post.slug %}" class="btn btn-warning">
                             ✏️ Editar
                         </a>
-                        <a href="{% url 'eliminar_post' post.pk %}" class="btn btn-danger">
+                        <a href="{% url 'blog:eliminar_post' post.slug %}" class="btn btn-danger">
                             🗑️ Eliminar
                         </a>
-                        <a href="{% url 'home' %}" class="btn btn-secondary">
-                            🏠 Volver al inicio
+                        {% endif %}
+
+                        <!-- Siempre visible -->
+                        <a href="{% url 'blog:lista_posts' %}" class="btn btn-secondary">
+                            📰 Volver al Blog
                         </a>
+
                     </div>
+
                 </div>
             </div>
         </div>

@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="p-5 mb-4 bg-dark text-white rounded-3">
+        <div class="container-fluid py-3">
+            <p class="col-md-8 fs-4">Aqui encontraras los mejores articulos y noticias.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'blog:lista_posts' %}"><i class="bi bi-newspaper"></i> Ver Blog</a>
+            <a class="btn btn-outline-light btn-lg ms-2" href="{% url 'about' %}"><i class="bi bi-info-circle"></i> Sobre Nosotros</a>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-newspaper fs-1 text-primary"></i>
+                    <h5 class="card-title mt-2 fw-bold">Posts</h5>
+                    <p class="card-text text-muted">Lee los ultimos articulos publicados.</p>
+                    <a href="{% url 'blog:lista_posts' %}" class="btn btn-primary">Ver Posts</a>
+                </div>
+            </div>
+        </div>
+        {% if user.is_staff or user.is_superuser %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-pencil-square fs-1 text-success"></i>
+                    <h5 class="card-title mt-2 fw-bold">Crear Post</h5>
+                    <p class="card-text text-muted">Escribe y publica tu propio articulo.</p>
+                    <a href="{% url 'blog:crear_post' %}" class="btn btn-success">Nuevo Post</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-search fs-1 text-warning"></i>
+                    <h5 class="card-title mt-2 fw-bold">Buscar</h5>
+                    <p class="card-text text-muted">Encuentra articulos por tema.</p>
+                    <a href="{% url 'blog:buscar_posts' %}" class="btn btn-warning">Buscar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
